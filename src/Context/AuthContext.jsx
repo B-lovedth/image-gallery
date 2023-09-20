@@ -12,7 +12,7 @@ export const useAuthContext = () => {
 export const AuthProvider = ({children}) => {
     const [currentUser,setCurrentUser] = useState(null);
     const [loading,setLoading] = useState(true);
-    const [query,setQuery] = useState("Random");
+    const [query,setQuery] = useState("Curated");
 
     const signIn=(email,password)=>{
         return signInWithEmailAndPassword(auth,email,password);

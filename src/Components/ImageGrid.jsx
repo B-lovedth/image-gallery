@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { GridBox } from "./StyledComponents";
-import { createClient } from "pexels";
-import { useAuthContext } from "../Context/AuthContext";
 import { Image } from "./Image";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -10,17 +8,20 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import SkeletonLoader from "./SkeletonLoader";
+import axios from "axios";
 
 const ImageGrid = () => {
-  const client = createClient(import.meta.env.VITE_PEXELS_API_KEY);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { query } = useAuthContext();
   const getImages = async () => {
     try {
       setLoading(true);
-      const data = await client.photos.search({ query, per_page: 16 });
+      const data = await axios.get("https://api.pexels.com/v1/curated", {
+        headers:{
+          Authorization:import.meta.env.VITE_PEXELS_API_KEY
+        }
+      }).then(res=>res.data)
       setImages(data.photos);
       console.log(data.photos);
       localStorage.setItem("images", JSON.stringify(data.photos));
@@ -52,7 +53,7 @@ const ImageGrid = () => {
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} grid={{ rowGap: 10, columnGap: 10 }}>
     <GridBox>
       <SortableContext
-        items={images.map((image) => image.id)}
+        items={images?.map((image) => image.id)}
         strategy={rectSortingStrategy}
       >
         {images && images.map((image, key) => {
