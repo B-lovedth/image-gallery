@@ -1,7 +1,7 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
+  Route
 } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
 import Signin from "./Pages/Signin";
@@ -14,7 +14,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<PrivateRoute />}>
-            <Route  index path="/" element={<Home />} />
+            <Route exact path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
           </Route>
           <Route path="/signin" element={<Signin />} />

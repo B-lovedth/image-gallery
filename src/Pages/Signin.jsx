@@ -21,7 +21,6 @@ const Signin = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      setError("");
       await signIn(emailRef.current.value, passwordRef.current.value).then(
         (userCredential) => console.log(userCredential)
       );
