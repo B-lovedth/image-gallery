@@ -28,6 +28,8 @@ const Img = styled.div`
         padding:1rem;
     border-radius: 10px;
     position:relative;
+    touch-action: none;
+    cursor:grab;
     img{
         position: absolute;
         inset:0;
